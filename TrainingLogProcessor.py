@@ -8,21 +8,20 @@ import datetime as dt
 class TrainingLogProcessor:
     def __init__(self, creds_json):
         # self.df = self.__load_from_gss()  
-        self.df = self.__read_spreadsheet(sheet_name="TrainingLog",
-                                          crendentitial=creds_json)
-
-    def __load_from_gss(crendentitial, sheet_name="TrainingLog"):
+        print(creds_json)
+        self.df = self.__load_from_gss(creds_json, "TrainingLog")
+        
+    def __load_from_gss(self, crendentitial, sheet_name="TrainingLog"):
         scope = ["https://spreadsheets.google.com/feeds",
                  "https://www.googleapis.com/auth/drive"]
         # 認証情報を使ってクライアントを作成
+        print(crendentitial)
         creds = ServiceAccountCredentials.from_json_keyfile_dict(crendentitial, scope)
 
         client = gspread.authorize(creds)
 
         # スプレッドシートを開く (スプレッドシートの名前を指定)
-        print("a")
         spreadsheet = client.open(sheet_name)
-        print("a")
 
         # シートを選択
         sheet = spreadsheet.sheet1  # 一番目のシートを選択する場合
