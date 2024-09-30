@@ -9,7 +9,9 @@ import pandas as pd
 
 class TrainingLogVisualizer:
     def __init__(self):
-        self.logs = TrainingLogProcessor()
+        creds_json = st.secrets["gcp_service_account"]
+
+        self.logs = TrainingLogProcessor(creds_json)
         self.target_menu = ['バックスクワット',
                             'ベンチプレス',
                             'コンベンショナルデッドリフト',
